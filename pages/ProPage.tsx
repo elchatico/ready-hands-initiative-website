@@ -1,33 +1,49 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AnimatedSection from '../components/AnimatedSection';
 import { CheckCircleIcon } from '../components/icons';
-import { Link } from 'react-router-dom';
 
-const packages = [
+const trainingPackages = [
   {
     name: 'Basic',
-    price: '25,000',
-    employees: 'up to 15',
-    features: ['2-Hour Session', 'Basic First Aid', 'CPR Basics', 'Digital Certificates'],
-    highlight: false,
+    duration: '2-Hour Session',
+    description: 'A concise introduction to essential first aid skills for any workplace.',
+    features: [
+      'Emergency scene management',
+      'Basic life support (CPR)',
+      'Choking emergencies',
+      'Wound and bleeding care',
+    ],
+    color: 'bg-rh-light-blue',
   },
   {
     name: 'Standard',
-    price: '50,000',
-    employees: 'up to 30',
-    features: ['Half-Day Session', 'All Basic Features', 'Advanced Wound Care', 'Emergency Scenarios', 'Printed Certificates'],
-    highlight: true,
+    duration: 'Half-Day Training',
+    description: 'Comprehensive training covering a wider range of common workplace incidents.',
+    features: [
+      'All Basic features',
+      'Dealing with shock and fainting',
+      'Burns and scalds',
+      'Fractures and sprains',
+      'Medical emergencies (e.g., seizures)',
+    ],
+    color: 'bg-rh-blue',
   },
   {
     name: 'Pro',
-    price: '90,000',
-    employees: 'up to 50',
-    features: ['Full-Day Session', 'All Standard Features', 'Customized Scenarios', 'AED Training', 'First Aid Kit Audit'],
-    highlight: false,
+    duration: 'Full-Day Certification',
+    description: 'In-depth, hands-on training tailored to your industry\'s specific risks.',
+    features: [
+      'All Standard features',
+      'Advanced scenario-based practice',
+      'Use of AED (Defibrillator)',
+      'Head, neck, and spinal injuries',
+      'Customized modules for your workplace',
+    ],
+    color: 'bg-rh-red',
   },
 ];
-
 
 const PageHeader: React.FC<{ title: string; subtitle: string }> = ({ title, subtitle }) => (
     <div className="bg-rh-blue text-white py-12">
@@ -38,43 +54,41 @@ const PageHeader: React.FC<{ title: string; subtitle: string }> = ({ title, subt
     </div>
 );
 
-
 const ProPage: React.FC = () => {
   return (
     <div>
-      <PageHeader title="RH Pro Training" subtitle="Safe Teams, Strong Businesses." />
+      <PageHeader title="RH Pro Workplace Training" subtitle="Safe Teams, Strong Businesses." />
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center">
-          <h2 className="text-3xl font-bold text-rh-blue">Workplace Training Packages</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
-            Our workplace program tailors first aid training to your team’s specific needs, ensuring compliance and building a culture of safety and preparedness.
+          <h2 className="text-3xl font-bold text-rh-blue">Invest in Your Team's Safety</h2>
+          <p className="mt-4 max-w-3xl mx-auto text-lg text-gray-600">
+            Our certified trainers deliver engaging, practical first aid courses designed for the workplace. Equip your employees with the confidence and skills to respond effectively in an emergency, ensuring a safer environment for everyone.
           </p>
         </AnimatedSection>
-        
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {packages.map((pkg, index) => (
+
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {trainingPackages.map((pkg, index) => (
             <AnimatedSection key={pkg.name} className="flex" style={{ transitionDelay: `${index * 150}ms` }}>
-              <div className={`relative w-full flex flex-col border rounded-lg shadow-lg p-8 transition-transform duration-300 hover:scale-105 hover:shadow-2xl ${pkg.highlight ? 'border-rh-red' : 'border-gray-200'}`}>
-                {pkg.highlight && (
-                    <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-rh-red text-white text-sm font-bold px-4 py-1 rounded-full">Most Popular</div>
-                )}
-                <h3 className="text-2xl font-bold text-rh-blue">{pkg.name}</h3>
-                <p className="mt-4">
-                  <span className="text-4xl font-extrabold text-rh-blue">KES {pkg.price}</span>
-                </p>
-                <p className="mt-1 text-gray-500">{pkg.employees} employees</p>
-                <ul className="mt-8 space-y-4 text-gray-600 flex-grow">
-                  {pkg.features.map(feature => (
-                    <li key={feature} className="flex items-start">
-                      <CheckCircleIcon className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8">
-                  <Link to="/contact" className={`w-full text-center font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ${pkg.highlight ? 'bg-rh-red text-white hover:bg-opacity-90' : 'bg-rh-off-white text-rh-blue hover:bg-gray-200'}`}>
-                    Get Started
-                  </Link>
+              <div className="w-full bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform transition-transform duration-300 hover:-translate-y-2">
+                <div className={`p-6 ${pkg.color}`}>
+                  <h3 className="text-2xl font-bold text-white text-center">{pkg.name}</h3>
+                  <p className="text-center text-white opacity-90 mt-1">{pkg.duration}</p>
+                </div>
+                <div className="p-8 flex flex-col flex-grow">
+                  <p className="text-center text-gray-600">{pkg.description}</p>
+                  <ul className="mt-6 space-y-4 text-gray-700 flex-grow">
+                    {pkg.features.map(feature => (
+                      <li key={feature} className="flex items-start">
+                        <CheckCircleIcon className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8">
+                    <Link to="/contact" className="block w-full text-center bg-rh-red text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300">
+                        Book Now
+                    </Link>
+                  </div>
                 </div>
               </div>
             </AnimatedSection>
